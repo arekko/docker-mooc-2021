@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  frontend:
+    image: frontend
+    environment:
+      - API_URL=http://localhost:8000
+    ports:
+      - 80:5000
+  backend:
+    image: server
+    environment:
+      - FRONT_URL=*
+    ports:
+      - 8000:8000

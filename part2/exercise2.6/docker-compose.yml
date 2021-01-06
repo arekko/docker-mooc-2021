@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  frontend:
+    image: frontend
+    environment:
+      - API_URL=http://localhost:8000
+    ports:
+      - 80:5000
+    depends_on:
+      - db
+  backend:
+    image: server
+    environment:
+      - FRONT_URL=*
+      - REDIS=redis_db
+      - DB_USERNAME=admin
+      - DB_PASSWORD=password
+      - DB_NAME=simple_db
+      - DB_HOST=db
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  redis_db:
+    image: redis
+    ports:
+      - 6379:6379
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: simple_db

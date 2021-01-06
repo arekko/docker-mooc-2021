@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+  backend:
+    image: server
+    environment:
+      - FRONT_URL=*
+      - REDIS=redis_db
+    ports:
+      - 8000:8000
+  redis_db:
+    image: redis
+    ports:
+      - 6379:6379
